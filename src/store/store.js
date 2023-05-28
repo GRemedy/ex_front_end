@@ -7,10 +7,17 @@ const store = Vuex.createStore({
       }
     },
     mutations: {
-      
+      setToken(state, token) {
+        state.token = token
+      }
     },
     actions: {
-      
+      async login(context, { username, password }) {
+        // 发送登录请求
+        const response = await api.login(username, password)
+        // 更新 token
+        context.commit('setToken', response.data.token)
+      }
     },
     getters: {
       getToken(state) {
